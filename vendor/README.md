@@ -1,0 +1,1 @@
+O Lenis oficial é opcional para uso offline. Execute `bash install-lenis.command` na raiz para baixar `lenis.min.js` e marcar o arquivo como disponível. Licença MIT, https://github.com/darkroomengineering/lenis.

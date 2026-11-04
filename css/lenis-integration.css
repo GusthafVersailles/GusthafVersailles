@@ -1,0 +1,11 @@
+/* Official Lenis classes + safe accessibility defaults. */
+html, body {overflow-x:clip}
+html.lenis, html.lenis body{height:auto}
+html.lenis.lenis-smooth{scroll-behavior:auto!important}
+html.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+html.lenis.lenis-stopped{overflow:hidden}
+html.lenis.lenis-smooth iframe{pointer-events:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
+/* A interpolação local aplica scroll instantâneo internamente; apenas o movimento
+   produzido pelo rAF decide a velocidade. Impede suavização CSS dupla. */
+html.local-cinematic-scroll{scroll-behavior:auto!important}
