@@ -158,71 +158,91 @@
   const methodSteps=[...d.querySelectorAll('.method-steps details')];
   const methodCounter=d.getElementById('method-active-number');
   const mobileCounter=d.getElementById('method-mobile-active-number');
-  function revealPassedContent(){
-    // IntersectionObserver can skip short elements during rapid iOS momentum scroll.
-    // Reveal anything that has entered the reading area or has been passed,
-    // rather than leaving pieces of Sobre permanently transparent.
-    if(!revealItems.size)return;
+  // v24: LEITURAS primeiro, ESCRITAS depois. No Safari, ler geometria após
+  // alterar transforms/classes pode forçar uma atualização síncrona do layout.
+  // Não guardamos posições da galeria entre quadros (regressão observada na v23).
+  function collectRevealCandidates(){
+    if(!revealItems.size)return [];
+    const result=[];
     const trigger=win.innerHeight*.82;
-    [...revealItems].forEach(el=>{
-      if(el.getBoundingClientRect().top <= trigger && canReveal(el)){
-        setVisible(el);
-        revealObserver?.unobserve(el);
-      }
-    });
+    // Read all DOM positions before changing any class in this batch.
+    for(const el of revealItems){
+      if(el.getBoundingClientRect().top<=trigger && canReveal(el))result.push(el);
+    }
+    return result;
   }
   function render(){
     scheduled=false;
     const scrollY=win.scrollY;
-    revealPassedContent();
-    if(scrollY===lastScroll && !galleryEnabled) return;
+    const toReveal=collectRevealCandidates();
+    const shouldRender=scrollY!==lastScroll||galleryEnabled;
+
+    // READ PHASE — use fresh geometry, including after changes to accordions,
+    // fonts, responsive header height or Safari's address bar.
+    let heroProgress=null, galleryProgress=null, aboutProgress=null, outroProgress=null, methodIndex=null;
+    if(shouldRender){
+      if(hero){
+        const r=hero.getBoundingClientRect();
+        if(r.bottom>0 && r.top<win.innerHeight){
+          heroProgress=clamp((-r.top)/Math.max(1,r.height),0,1);
+        }
+      }
+      if(galleryEnabled && frame){
+        const r=frame.getBoundingClientRect();
+        galleryProgress=clamp((headerHeight()-r.top)/galleryScrollDistance,0,1);
+      }
+      if(manifesto && manifestoImage){
+        const r=manifesto.getBoundingClientRect();
+        if(r.bottom>0&&r.top<win.innerHeight){
+          aboutProgress=clamp((win.innerHeight-r.top)/(win.innerHeight+r.height),0,1);
+        }
+      }
+      if(outro&&outroArt){
+        const r=outro.getBoundingClientRect();
+        if(r.bottom>0&&r.top<win.innerHeight){
+          outroProgress=clamp((win.innerHeight-r.top)/(win.innerHeight+r.height),0,1);
+        }
+      }
+      if(method && methodCounter && methodSteps.length){
+        const r=method.getBoundingClientRect();
+        if(r.bottom>0&&r.top<win.innerHeight){
+          const boundary=win.innerHeight*.66;
+          let eligibleCount=0;
+          for(const step of methodSteps){
+            if(step.getBoundingClientRect().top<boundary)eligibleCount++;
+          }
+          methodIndex=Math.max(0,eligibleCount-1);
+        }
+      }
+    }
+
+    // WRITE PHASE — transforms, classes and text are now updated together.
+    for(const el of toReveal){
+      setVisible(el);
+      revealObserver?.unobserve(el);
+    }
+    if(!shouldRender)return;
     lastScroll=scrollY;
     body.classList.toggle('scrolled',scrollY>26);
-    // The first artwork advances while the introduction recedes: scroll-linked.
-    if(hero){
-      const r=hero.getBoundingClientRect();
-      if(r.bottom>0 && r.top<win.innerHeight){
-        const progress=clamp((-r.top)/Math.max(1,r.height),0,1);
-        hero.style.setProperty('--hero-progress',progress.toFixed(4));
-      }
+    if(heroProgress!==null){
+      hero.style.setProperty('--hero-progress',heroProgress.toFixed(4));
     }
-    // A sticky cinematic portfolio gallery, entirely offline.
-    if(galleryEnabled && frame){
-      const r=frame.getBoundingClientRect();
-      const p=clamp((headerHeight()-r.top)/galleryScrollDistance,0,1);
-      if(Math.abs(p-previousGalleryProgress)>0.0005){
-        track.style.transform=`translate3d(${(-galleryTravel*p).toFixed(2)}px, 0, 0)`;
-        setGalleryProgress(p);
-        previousGalleryProgress=p;
-      }
+    if(galleryProgress!==null && Math.abs(galleryProgress-previousGalleryProgress)>0.0005){
+      track.style.transform=`translate3d(${(-galleryTravel*galleryProgress).toFixed(2)}px, 0, 0)`;
+      setGalleryProgress(galleryProgress);
+      previousGalleryProgress=galleryProgress;
     }
-    // Scoped parallax, no persistent scroll hijacking.
-    if(manifesto && manifestoImage){
-      const r=manifesto.getBoundingClientRect();
-      if(r.bottom>0 && r.top<win.innerHeight){
-        const p=clamp((win.innerHeight-r.top)/(win.innerHeight+r.height),0,1);
-        manifestoImage.style.transform=`translate3d(0,${lerp(34,-34,p).toFixed(2)}px,0)`;
-      }
+    if(aboutProgress!==null){
+      manifestoImage.style.transform=`translate3d(0,${lerp(34,-34,aboutProgress).toFixed(2)}px,0)`;
     }
-    if(outro && outroArt){
-      const r=outro.getBoundingClientRect();
-      if(r.bottom>0&&r.top<win.innerHeight){
-        const p=clamp((win.innerHeight-r.top)/(win.innerHeight+r.height),0,1);
-        outroArt.style.transform=`translate3d(${lerp(-46,46,p).toFixed(2)}px,${lerp(35,-35,p).toFixed(2)}px,0)`;
-        outro.style.setProperty('--outro-reveal',p.toFixed(3));
-      }
+    if(outroProgress!==null){
+      outroArt.style.transform=`translate3d(${lerp(-46,46,outroProgress).toFixed(2)}px,${lerp(35,-35,outroProgress).toFixed(2)}px,0)`;
+      outro.style.setProperty('--outro-reveal',outroProgress.toFixed(3));
     }
-    // Method steps: actively highlight the current page of the working archive.
-    if(method && methodCounter && methodSteps.length){
-      const r=method.getBoundingClientRect();
-      if(r.bottom>0 && r.top<win.innerHeight){
-        const eligible=methodSteps.filter(item=>item.getBoundingClientRect().top<win.innerHeight*.66);
-        const index=Math.max(0,eligible.length-1);
-        methodSteps.forEach((item,i)=>item.classList.toggle('motion-step-current',i===index));
-        // Only update the visual folio if an accordion isn't just being opened.
-        methodCounter.dataset.scrollFocus=String(index+1).padStart(2,'0');
-        if(mobileCounter)mobileCounter.textContent=String(index+1).padStart(2,'0');
-      }
+    if(methodIndex!==null){
+      methodSteps.forEach((item,i)=>item.classList.toggle('motion-step-current',i===methodIndex));
+      methodCounter.dataset.scrollFocus=String(methodIndex+1).padStart(2,'0');
+      if(mobileCounter)mobileCounter.textContent=String(methodIndex+1).padStart(2,'0');
     }
   }
   function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(render)}}

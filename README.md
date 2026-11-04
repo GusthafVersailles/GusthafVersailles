@@ -1,4 +1,4 @@
-# Gusthaf Versailles — Arquivo Vivo v22
+# Gusthaf Versailles — Arquivo Vivo v24
 
 Portfólio publicado em HTML/CSS/JavaScript, com galeria horizontal cinematográfica, navegação PT/EN e três projetos integrados.
 
@@ -11,10 +11,14 @@ Portfólio publicado em HTML/CSS/JavaScript, com galeria horizontal cinematográ
 - `vendor/` — integração opcional do Lenis (CDN com fallback quando indisponível)
 - `vercel.json` — headers, compatibilidade de rotas antigas e caminhos dos projetos
 
+## Diagnóstico opcional de desempenho
+
+Use `?gvperf=1` no URL para visualizar os dados de FPS/quadros durante o scroll. Veja `DIAGNOSTICO-v24.md`. A configuração do Lenis e os projetos foram mantidos.
+
 ## Desenvolvimento
 
 Execute `python3 -m http.server 5500` e abra `http://localhost:5500`. Teste o fluxo Hero → Sobre → Processo → Projetos → CTA → Footer, e as versões PT/EN e mobile.
 
 ## Backup
 
-A versão anterior à migração foi preservada na branch `backup-original-before-arquivo-vivo-v22-2026-11-04`.
+A versão anterior à migração foi preservada na branch `backup-original-before-arquivo-vivo-v24-2026-11-04`.

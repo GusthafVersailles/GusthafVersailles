@@ -1,3 +1,9 @@
+## v24 — Otimização de estabilidade da rolagem (produção)
+- Leituras de posição agrupadas antes das escritas de animação por frame.
+- Sem mudanças na configuração do Lenis ou no movimento da galeria.
+- Monitor de diagnóstico opcional com `?gvperf=1`.
+- Projetos e redirecionamentos da v22 preservados.
+
 # Histórico consolidado
 
 ## v22 — Textos, ícones e estrutura do pacote
