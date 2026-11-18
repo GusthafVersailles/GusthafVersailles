@@ -20,7 +20,7 @@ window.GV_CONTENT = {
       "subtitle": "DESENVOLVEDOR WEB DE LUXO"
     },
     "about": {
-      "heading": "Eu crio experiências digitais com precisão e identidade.",
+      "heading": "Sou Gusthaf Versailles, desenvolvedor web. Crio experiências digitais imersivas que combinam design, movimento e estrutura com precisão e identidade.",
       "p1": "Sou Gusthaf Versailles, um desenvolvedor web focado em criar ambientes digitais imersivos onde design, movimento e estrutura coexistem com intenção.",
       "p2": "Meu trabalho não é sobre excesso. É sobre presença, controle e um ritmo visual que faz uma marca parecer consolidada desde a primeira interação.",
       "security": "Além do desenvolvimento visual, cada projeto é construído com práticas modernas de segurança e estabilidade projetadas para evitar vulnerabilidades e garantir confiabilidade a longo prazo.",
@@ -118,9 +118,9 @@ window.GV_CONTENT = {
       "gallery": "GV / OBRAS",
       "galleryHint": "CONTINUE ROLANDO PARA EXPLORAR →",
       "viewProject": "Ver projeto",
-      "aboutIndex": "01 / SOBRE",
+      "aboutIndex": "01 - SOBRE",
       "aboutKicker": "PRÁTICA & FILOSOFIA",
-      "methodIndex": "02 / PROCESSO",
+      "methodIndex": "02 - PROCESSO",
       "methodDeck": "Da estratégia ao movimento.",
       "footerEdition": "Arquivo Vivo / 2026",
       "backToTop": "Voltar ao início ↑",
@@ -150,7 +150,7 @@ window.GV_CONTENT = {
       "subtitle": "LUXURY WEB DEVELOPER"
     },
     "about": {
-      "heading": "I create digital experiences with precision and identity.",
+      "heading": "I am Gusthaf Versailles, a web developer. I create immersive digital experiences that combine design, motion and structure with precision and identity.",
       "p1": "I’m Gusthaf Versailles, a web developer focused on building immersive digital environments where design, motion and structure coexist with intention.",
       "p2": "My work is not about excess. It is about presence, control and a visual rhythm that makes a brand feel established from the first interaction.",
       "security": "Beyond visual development, each project is built with modern security and stability practices designed to prevent vulnerabilities and ensure long-term reliability.",
@@ -248,9 +248,9 @@ window.GV_CONTENT = {
       "gallery": "GV / WORKS",
       "galleryHint": "KEEP SCROLLING TO EXPLORE →",
       "viewProject": "View project",
-      "aboutIndex": "01 / ABOUT",
+      "aboutIndex": "01 - ABOUT",
       "aboutKicker": "PRACTICE & PHILOSOPHY",
-      "methodIndex": "02 / PROCESS",
+      "methodIndex": "02 - PROCESS",
       "methodDeck": "From strategy to motion.",
       "footerEdition": "Living Archive / 2026",
       "backToTop": "Back to top ↑",

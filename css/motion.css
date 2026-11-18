@@ -24,7 +24,7 @@ body {overflow-x:clip;}
 .gallery-visit{border-bottom:1px solid currentColor;display:inline-flex;align-items:center;justify-content:space-between;gap:50px;font-size:12px;padding:12px 0;min-width:170px}
 .gallery-visit span{font-size:22px}
 .gallery-media{position:relative;min-width:0;height:100%;overflow:hidden;display:block;background:#16080e;align-self:center;box-shadow:0 20px 55px rgba(8,1,3,.26)}
-.gallery-media:after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none}
+.gallery-media:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none}
 .gallery-media img{width:100%;height:100%;object-fit:cover;object-position:top left;transform:translate3d(calc(var(--panel-progress,0) * -35px),0,0) scale(1.10);transition:filter .45s ease;filter:saturate(.90)}
 .gallery-media:hover img{filter:saturate(1.04)}
 .gallery-meter{height:2px;flex:1;max-width:410px;background:rgba(241,231,216,.30);overflow:hidden}
@@ -36,35 +36,57 @@ body.motion-gallery-ready .works-fallback{display:none}
 body.motion-gallery-ready .motion-gallery{position:sticky;top:86px}
 /* O título do Processo nunca fica sticky: evita colisão com Escopo de Projeto. */
 .method-intro{position:static!important;top:auto!important;align-self:start;height:auto}
-/* Staged entrance: plays even from a downloaded file on the first opening. */
-@keyframes motionType{from{opacity:0;transform:translate3d(0,52px,0);filter:blur(4px)}to{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
-@keyframes motionStage{from{opacity:.15;clip-path:inset(0 0 100% 0);transform:scale(1.05)}to{opacity:1;clip-path:inset(0 0 0 0);transform:scale(1)}}
-@keyframes motionRule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes motionIndex{from{opacity:0;transform:translateX(-25px)}to{opacity:1;transform:translateX(0)}}
-@keyframes motionOpacity{from{opacity:0}to{opacity:1}}
-body.motion-intro-running .hero-overline{animation:motionOpacity .7s .05s both}
-body.motion-intro-running .hero h1{animation:motionType 1s .13s cubic-bezier(.18,.75,.22,1) both}
-body.motion-intro-running .hero-subrow{animation:motionType .95s .34s cubic-bezier(.18,.75,.22,1) both}
-body.motion-intro-running .hero-actions{animation:motionOpacity .65s .55s both}
-body.motion-intro-running .index-item{animation:motionIndex .65s cubic-bezier(.18,.75,.22,1) both}
-body.motion-intro-running .index-item:nth-of-type(1){animation-delay:.58s}
-body.motion-intro-running .index-item:nth-of-type(2){animation-delay:.7s}
-body.motion-intro-running .index-item:nth-of-type(3){animation-delay:.82s}
-body.motion-intro-running .hero-mark-field{animation:motionStage 1.15s .15s cubic-bezier(.2,.7,.25,1) both}
-body.motion-intro-running .mark-center img{animation:motionType 1s .5s both}
-/* Hero scroll linked: limited displacement, no performance-hostile reflow. */
-@media(min-width:1px){
- .hero-content h1{translate:0 calc(var(--hero-progress,0) * -43px);opacity:calc(1 - var(--hero-progress,0) * .28)}
- .hero-mark-field .mark-center{translate:0 calc(var(--hero-progress,0) * 35px)}
-}
+/* v39 — Abertura elegante, 100% compositor (transform/opacity). Nada de blur nem clip-path animados.
+   O estado inicial escondido (html.gv-pre) sai no MESMO quadro em que a animação começa: sem "pisca". */
+:root{--gv-ease:cubic-bezier(.16,1,.3,1);--gv-ease-io:cubic-bezier(.76,0,.24,1)}
+@keyframes gvLine{from{transform:translate3d(0,112%,0)}to{transform:translate3d(0,0,0)}}
+@keyframes gvRise{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes gvFade{from{opacity:0}to{opacity:1}}
+@keyframes gvCurtain{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+@keyframes gvField{from{transform:scale(1.14)}to{transform:scale(1)}}
+@keyframes gvArc{from{transform:rotate(-34deg) scale(.94)}to{transform:rotate(-20deg) scale(1)}}
+/* Título em duas linhas com máscara: cada linha sobe de dentro da própria caixa. */
+/* h1 em coluna flex: margens de itens flex não colapsam, então o respiro da máscara não altera a altura do título. */
+.hero h1{display:flex;flex-direction:column}
+.hero h1 .gv-line{display:block;overflow:hidden;padding:.1em .06em .08em;margin:-.1em -.06em -.08em}
+.hero h1 .gv-line-in{display:block}
+body.motion-intro-finished .hero h1 .gv-line{overflow:visible}
+/* Cortina da marca: a cor do papel recolhe para cima revelando o painel de baixo para cima. */
+.hero-mark::after{content:"";position:absolute;inset:0;z-index:6;background:var(--cream);transform:scaleY(0);transform-origin:50% 0;pointer-events:none}
+html.gv-pre .hero h1 .gv-line-in{transform:translate3d(0,112%,0)}
+html.gv-pre .hero-subrow,html.gv-pre .hero-spine,html.gv-pre .site-header{opacity:0}
+html.gv-pre .hero-mark::after{transform:scaleY(1)}
+body.motion-intro-running .site-header{animation:gvFade 1s ease backwards}
+body.motion-intro-running .hero-mark::after{animation:gvCurtain 1.5s .1s var(--gv-ease-io) both}
+body.motion-intro-running .hero-mark-field{animation:gvField 2s .1s var(--gv-ease) backwards}
+body.motion-intro-running .mark-arc{animation:gvArc 2.4s .25s var(--gv-ease) backwards}
+body.motion-intro-running .hero h1 .gv-line-in{animation:gvLine 1.5s var(--gv-ease) backwards}
+body.motion-intro-running .hero h1 .gv-line:nth-child(1) .gv-line-in{animation-delay:.12s}
+body.motion-intro-running .hero h1 .gv-line:nth-child(2) .gv-line-in{animation-delay:.24s}
+body.motion-intro-running .hero-subrow{animation:gvRise 1.1s .6s var(--gv-ease) backwards}
+body.motion-intro-running .hero-spine{animation:gvFade 1.2s .5s ease backwards}
+
+/* v39 — Hero scroll-linked: o JS escreve translate/opacity direto no h1 e no campo (sem custom property no .hero). */
+.hero-content h1,.hero-mark-field{will-change:transform}
 /* Section choreography is applied only to content below the initial viewport. */
-.motion-reveal{opacity:0;transform:translate3d(0,65px,0) scale(.985);clip-path:inset(10% 0 0 0);transition:opacity .95s cubic-bezier(.2,.75,.2,1),transform 1.15s cubic-bezier(.2,.75,.2,1),clip-path 1.15s cubic-bezier(.2,.75,.2,1)}
-.motion-reveal.motion-in-view{opacity:1;transform:translate3d(0,0,0) scale(1);clip-path:inset(0 0 0 0)}
-.method-steps .motion-step-current{border-left:3px solid #924859;padding-left:16px;transition:padding .5s ease,border-color .5s ease}
-.outro{--outro-reveal:0}
+.motion-reveal{opacity:0;transform:translate3d(0,56px,0);transition:opacity 1s var(--gv-ease),transform 1.35s var(--gv-ease)}
+.motion-reveal.motion-warm{will-change:opacity,transform}
+.motion-reveal.motion-in-view{opacity:1;transform:translate3d(0,0,0)}
+.motion-reveal.motion-prime{transition:none!important}
+.motion-reveal.motion-done{transform:none;transition:none;will-change:auto}
+.method-steps .motion-step-current{border-left:3px solid #924859;padding-left:16px}
+/* O destaque do passo atual e o reveal compartilham o mesmo elemento: a lista de transições precisa conter ambos. */
+.method-steps details.motion-reveal{transition:opacity 1s var(--gv-ease),transform 1.35s var(--gv-ease),padding-left .5s ease,border-color .5s ease}
+.method-steps details.motion-reveal.motion-prime{transition:none!important}
+.method-steps details.motion-reveal.motion-done{transition:padding-left .5s ease,border-color .5s ease}
+/* Acordeão animado (js/script.js): o + gira com o estado, não só no fim da animação. */
+.method-steps .plus{display:block;transition:transform .6s var(--gv-ease)}
+.method-steps details[data-state="open"] .plus{transform:rotate(45deg)}
+.method-steps details[data-state="closed"] .plus{transform:none}
 .outro-graphic{will-change:transform}
-.statement-aside img{will-change:transform}
-body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24px rgba(42,14,25,.06)}
+body.scrolled .site-header{background:rgba(239,230,217,.92)}
+.site-header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;box-shadow:0 10px 24px rgba(42,14,25,.06);opacity:0;transition:opacity .5s ease;will-change:opacity}
+body.scrolled .site-header::after{opacity:1}
 @media(max-width:999px){.method-intro{position:static}.gallery-panel{width:100vw}.method-steps .motion-step-current{padding-left:0;border:0}}
 @media(max-width:700px){.motion-reveal{transform:translate3d(0,34px,0)}.site-header{z-index:100}}
 @media(prefers-reduced-motion:reduce){.motion-gallery-frame{display:none!important}.works-fallback{display:block!important}.motion-reveal{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}.hero *{animation:none!important;translate:none!important}.gallery-track,.gallery-media img,.statement-aside img,.outro-graphic{transform:none!important;will-change:auto!important}}
@@ -85,7 +107,7 @@ body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24
   .motion-gallery{height:calc(100svh - 69px);min-height:0;max-height:none}
   body.motion-gallery-ready .motion-gallery{top:69px}
   .motion-gallery-header,.motion-gallery-footer{min-height:44px;padding:0 17px;gap:9px;font-size:9px}
-  .gallery-kicker{font-size:9px}
+  
   .gallery-directions{font-size:8px;max-width:155px;line-height:1.3;text-align:center}
   .gallery-panel{width:100vw;flex:0 0 100vw;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(115px,.8fr) minmax(120px,1fr);gap:clamp(9px,2vh,19px);padding:clamp(15px,3svh,25px) 18px}
   .gallery-copy{min-height:0;gap:8px}
@@ -99,7 +121,7 @@ body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24
   .gallery-meter{max-width:none}
   .gallery-skip{font-size:9px}
   .gallery-skip span{padding-left:2px}
-  .mark-center{translate:0 calc(var(--hero-progress,0) * 35px)}
+  
 }
 @media(max-width:700px) and (max-height:620px){
   .gallery-panel{grid-template-rows:minmax(95px,.8fr) minmax(100px,1fr);padding:12px 16px;gap:8px}
@@ -109,10 +131,10 @@ body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24
   .gallery-panel-id{font-size:8px}
   .motion-gallery-header,.motion-gallery-footer{min-height:35px}
 }
-@media(prefers-reduced-motion:reduce){.hero-mark-field .mark-center{translate:none!important}}
+@media(prefers-reduced-motion:reduce){}
 
 /* Arquivo Vivo v10 — fast touch rendering; same sections, lighter compositing. */
-.gallery-meter span{width:100%!important;transform:scaleX(0);transform-origin:left center;transition:none;}
+.gallery-meter span{width:100%!important;transform:scaleX(0);transform-origin:left center;transition:none;will-change:transform}
 @media (hover:none), (pointer:coarse) {
   .gallery-track{will-change:transform;}
   .gallery-media{box-shadow:none;}
@@ -157,22 +179,7 @@ body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24
 .motion-gallery-header { justify-content:flex-end; }
 .motion-gallery-footer { justify-content:center; }
 
-/* v15 — desktop choreography restored on mobile. These groups only play once
-   and remain in their completed state after scrolling back up. */
-@media (max-width:700px) and (prefers-reduced-motion:no-preference){
-  .statement .motion-reveal{
-    opacity:0;
-    clip-path:none;
-    transform:translate3d(0,65px,0) scale(.985);
-    /* Avoid a backwards visible-to-hidden transition on initial page load. */
-    transition:none;
-  }
-  .statement .motion-reveal.motion-in-view{
-    opacity:1;
-    transform:translate3d(0,0,0) scale(1);
-    transition:opacity .95s cubic-bezier(.2,.75,.2,1),transform 1.15s cubic-bezier(.2,.75,.2,1);
-  }
-}
+/* v39 — o reveal do Sobre no mobile usa as mesmas regras base (.motion-prime evita o fade-out no carregamento). */
 @media (prefers-reduced-motion:reduce){
   .statement .motion-reveal{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
 }
@@ -466,4 +473,9 @@ body.scrolled .site-header{background:rgba(239,230,217,.92);box-shadow:0 10px 24
 .gallery-panel .gallery-visit:focus-visible .external-arrow {transform:translate(2px,-2px)}
 @media(max-width:700px) {
   .gallery-panel .gallery-visit .external-arrow {width:17px;height:17px;flex-basis:17px}
+}
+
+/* v39 — Profundidade da galeria: imagem, texto e letra-fantasma deslizam em velocidades diferentes. */
+@media (hover:hover) and (pointer:fine){
+  .gallery-media,.gallery-copy-bottom,.gallery-initial{will-change:transform}
 }

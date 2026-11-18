@@ -27,7 +27,7 @@
       const p95=sorted[Math.min(sorted.length-1,Math.floor(sorted.length*.95))];
       const avg=windows.reduce((a,b)=>a+b,0)/windows.length;
       const slow=windows.filter(x=>x>25).length;
-      hud.textContent=`Motor: ${root.dataset.motionEngine||'?'} | ${Math.round(1000/avg)} FPS\nP95: ${p95.toFixed(1)}ms | >25ms: ${slow}/${windows.length}\nLong tasks: ${longCount} | Layout shift: ${shifts.toFixed(3)}`;
+      hud.textContent=`Motor: ${root.dataset.motionEngine||'?'} | ${Math.round(1000/avg)} FPS\nP95: ${p95.toFixed(1)}ms | >25ms: ${slow}/${windows.length}\nLong tasks: ${longCount} | Layout shift: ${shifts.toFixed(3)}\nJS/quadro: ${(window.GV?.stats.avg||0).toFixed(2)}ms (pico ${(window.GV?.stats.worst||0).toFixed(1)}ms)`;
       lastHud=t;
     }
     requestAnimationFrame(tick);

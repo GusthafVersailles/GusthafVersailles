@@ -1,24 +1,42 @@
-# Gusthaf Versailles — Arquivo Vivo v24
+# Gusthaf Versailles — Arquivo Vivo
 
-Portfólio publicado em HTML/CSS/JavaScript, com galeria horizontal cinematográfica, navegação PT/EN e três projetos integrados.
+Portfólio estático em HTML, CSS e JavaScript. Esta pasta é uma **cópia de testes organizada da v37**; nenhuma publicação é feita automaticamente.
 
 ## Estrutura
 
-- `index.html` — site principal
-- `assets/` — logo e imagens da galeria
-- `css/` e `js/` — estilos, animações, navegação e traduções
-- `projetos/AtelierNoir/`, `projetos/FontPairing/`, `projetos/ElegantFonts/` — aplicações completas
-- `vendor/` — integração opcional do Lenis (CDN com fallback quando indisponível)
-- `vercel.json` — headers, compatibilidade de rotas antigas e caminhos dos projetos
+```text
+index.html             Página principal
+assets/                Logotipo e prévias da galeria
+css/                   Estilos base, motion, Lenis e editorial consolidado
+js/                    Engine (relógio único + Lenis), navegação, idiomas, motion e diagnóstico opcional
+projetos/              Atelier Noir, Font Pairing e Elegant Fonts completos
+vendor/                Sinalizador de instalação opcional do Lenis offline
+tools/                 Instalador opcional do Lenis para execução local
+docs/                  Histórico e relatório da limpeza
+vercel.json            Regras de segurança, rotas legadas e redirects
+robots.txt, sitemap.xml
+```
 
-## Diagnóstico opcional de desempenho
+## Rodar localmente
 
-Use `?gvperf=1` no URL para visualizar os dados de FPS/quadros durante o scroll. Veja `DIAGNOSTICO-v24.md`. A configuração do Lenis e os projetos foram mantidos.
+Na raiz da pasta, execute `python3 -m http.server 5500` e abra `http://localhost:5500`.
+O preview simples via `file://` também pode funcionar, mas um servidor local reproduz melhor a hospedagem.
 
-## Desenvolvimento
+### Rolagem e animação (v39)
+Um único `requestAnimationFrame` (`js/engine.js`) comanda a rolagem **e** toda a coreografia, sempre na mesma ordem: o Lenis avança → medições (só se algo mudou de tamanho) → animações. Nenhuma animação lê layout por quadro.
 
-Execute `python3 -m http.server 5500` e abra `http://localhost:5500`. Teste o fluxo Hero → Sobre → Processo → Projetos → CTA → Footer, e as versões PT/EN e mobile.
+- **Motores:** Lenis oficial 1.3.27 via CDN (pré-carregado no `<head>`) → fallback local suave se o Lenis não carregar → rolagem nativa em touch e com "reduzir movimento".
+- **Ajuste fino da sensação de rolagem:** objeto `CONFIG` no topo de `js/engine.js` (`lerp`, `wheelMultiplier`, duração dos saltos de âncora).
+- **Offline / gravação:** execute `bash tools/install-lenis.command` uma vez (precisa de internet na instalação). Depois disso o Lenis é servido localmente, sem depender de CDN.
+- **Diagnóstico:** abra com `?gvperf=1`. O painel mostra FPS, long tasks e o custo de JavaScript por quadro. `document.documentElement.dataset.motionEngine` deve ser `lenis` no desktop.
+- **Boas práticas para novas animações:** anime só `transform`/`opacity`/`translate`; registre com `GV.onFrame((t, y) => …)` e meça geometria em `GV.onMeasure(…)`, nunca dentro do quadro.
 
-## Backup
+### Desempenho
 
-A versão anterior à migração foi preservada na branch `backup-original-before-arquivo-vivo-v24-2026-11-04`.
+Use `?gvperf=1` no endereço para ativar o pequeno painel de diagnóstico. O recurso permanece desativado por padrão.
+
+## Verificações
+
+Confira a Hero, Sobre (inclusive Filosofia/Princípios), Processo (acordeões e Escopo), três projetos e galerias horizontais, idiomas PT/EN, Contato, Footer, desktop e mobile.
+
+A organização não é uma alteração no repositório GitHub nem na implantação da Vercel.

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 mkdir -p vendor
 URL='https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js'
 echo 'Instalando Lenis oficial 1.3.27 para uso offline...'

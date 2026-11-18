@@ -1,0 +1,835 @@
+/* Gusthaf Versailles — estilos editoriais consolidados (v38).
+   Ordem de precedência mantida, sem reescrita de declarações ou valores. */
+
+/* Fonte: editorial-v32.css */
+/* Arquivo Vivo v31 — direção editorial aprovada. Somente Sobre, Processo,
+   abertura de Projetos e blocos de Filosofia/Princípios/Escopo.
+   Hero, galeria horizontal, cases, Contato e Footer não são estilizados aqui. */
+
+:root {
+  --ed-display: var(--sans);
+  --ed-label: var(--sans);
+  --ed-rule: rgba(53,19,31,.22);
+  --ed-side: clamp(21px,6vw,118px);
+}
+/* All three opening compositions use the same grid and visual hierarchy. */
+.statement,.method,.works-section { background:var(--paper); color:var(--ink); }
+.statement { padding:0 var(--ed-side) clamp(100px,10vw,160px); overflow:hidden; }
+.method.shell { display:flex; flex-direction:column; gap:0;
+  padding:0 var(--ed-side) clamp(100px,9vw,156px); align-items:stretch; }
+.works-section.shell { padding-top:0; padding-bottom:clamp(90px,8vw,130px); }
+.editorial-opening {
+  position:relative; display:block; isolation:isolate;
+  padding:clamp(116px,10vw,164px) 0 clamp(54px,6vw,98px);
+  min-width:0;
+}
+/* Oversized word is behind—not above in a separate tall empty row. */
+.editorial-opening .editorial-word {
+  position:absolute; z-index:-1; pointer-events:none; user-select:none;
+  top:clamp(4px,2vw,24px); left:50%; width:max-content;
+  font-family:var(--ed-display); font-weight:900; font-size:clamp(70px,19.8vw,310px);
+  letter-spacing:-.028em; line-height:1; white-space:nowrap; color:var(--wine);
+  opacity:0; transform:translate3d(-50%, 44px, 0);
+  transition:opacity 1.6s cubic-bezier(.16,1,.3,1), transform 1.8s cubic-bezier(.16,1,.3,1);
+  will-change:transform,opacity; /* a deriva por rolagem usa a propriedade `translate`, sem transição (js/editorial.js) */
+}
+.editorial-opening .editorial-word.is-in-view {
+  opacity:.092;
+  transform:translate3d(-50%, 0, 0);
+}
+.editorial-index,.statement-top.editorial-index {
+  position:relative; z-index:1; display:flex; align-items:center; justify-content:flex-start;
+  margin:0 0 clamp(27px,3.1vw,51px); padding:0;
+  color:var(--wine); font:700 clamp(12px,1vw,15px)/1.1 var(--ed-label);
+  letter-spacing:.155em; text-transform:uppercase;
+}
+.editorial-index::before{content:"";width:clamp(21px,3vw,42px);height:1px;background:currentColor;margin-right:16px;flex:none;opacity:.7}
+.editorial-index .section-index,.statement-top.editorial-index span{color:inherit;font:inherit;letter-spacing:inherit}
+.editorial-heading-row,.statement-body.editorial-heading-row {
+  position:relative; z-index:1; display:grid;
+  grid-template-columns:minmax(0,1fr) clamp(136px,16vw,230px);
+  gap:clamp(30px,4vw,88px); align-items:end;
+  margin:0; padding:0; min-width:0;
+}
+.editorial-heading-row h2,.statement-body.editorial-heading-row h2,
+.method-intro .editorial-heading-row h2,.section-masthead .editorial-heading-row h2 {
+  margin:0; padding:0; max-width:940px; min-width:0; width:100%;
+  font-family:var(--ed-display);font-weight:900;
+  font-size:clamp(52px,6.4vw,112px); line-height:1.055; letter-spacing:-.008em;
+  text-transform:uppercase; color:var(--ink); overflow-wrap:normal;
+}
+.editorial-metadata {
+  align-self:end; justify-self:end; width:100%; min-width:0;
+  display:flex; flex-direction:column; gap:5px; padding-bottom:.3em;
+  color:var(--wine); font:700 clamp(12px,1.08vw,16px)/1.06 var(--ed-label);
+  letter-spacing:.025em; text-transform:uppercase;
+}
+.editorial-metadata span{display:block;max-width:100%;overflow-wrap:normal}
+/* Sobre — original copy below the title; no text substitutions. */
+.statement .statement-reading { position:relative; padding:0 0 clamp(80px,8vw,130px); }
+.statement .statement-reading .statement-aside {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(18px,3vw,55px); max-width:1050px; width:100%;
+  align-items:start;
+}
+.statement .statement-reading .statement-aside p {
+  margin:0; font:400 clamp(18px,1.75vw,25px)/1.45 var(--serif);
+  letter-spacing:-.012em; max-width:48ch; color:var(--ink);
+}
+.statement .statement-reading .statement-aside .about-security {
+  grid-column:1 / -1; border-top:1px solid var(--ed-rule);
+  padding:20px 0 0; margin:clamp(8px,2vw,26px) 0 0;
+  font:400 clamp(14px,1.05vw,16px)/1.65 var(--sans);
+  opacity:.7; max-width:90ch;
+}
+/* Filosofia centered, copy preserved, followed by exactly four outlined principles. */
+.statement .statement-bottom.editorial-about-bottom {
+  display:flex; flex-direction:column; align-items:stretch; gap:clamp(85px,9vw,150px);
+  padding:0; margin:0; border:0; color:var(--ink);
+}
+.statement .statement-philosophy,.statement .statement-principles {
+  max-width:100%; width:100%; text-align:center; margin:0;
+}
+.statement .philosophy-kicker,.statement .statement-principles h3 {
+  display:block; margin:0 auto clamp(25px,3vw,44px);
+  font:700 clamp(17px,1.5vw,23px)/1.1 var(--ed-label);
+  color:var(--wine); letter-spacing:.18em; text-transform:uppercase;
+}
+.statement .statement-philosophy blockquote {
+  font:italic 400 clamp(31px,4.05vw,64px)/1.14 var(--serif);
+  letter-spacing:-.015em; color:var(--wine);
+  max-width:1000px; margin:0 auto clamp(15px,2vw,26px);
+}
+.statement .statement-philosophy p {
+  font:400 clamp(16px,1.4vw,21px)/1.5 var(--serif);
+  color:var(--ink); opacity:.76; max-width:790px; margin:0 auto;
+}
+.statement .statement-principles ol {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0;
+  width:min(100%,970px); padding:0; margin:0 auto;
+  border:1px solid rgba(53,19,31,.47); list-style:none;
+}
+.statement .statement-principles li {
+  display:flex; align-items:center; justify-content:center;
+  min-height:clamp(130px,13vw,190px); padding:clamp(20px,3vw,40px);
+  border:0; font:400 clamp(20px,2.5vw,34px)/1.17 var(--serif);
+  color:var(--wine); text-align:center;
+}
+.statement .statement-principles li:nth-child(odd){border-right:1px solid rgba(53,19,31,.47)}
+.statement .statement-principles li:nth-child(-n+2){border-bottom:1px solid rgba(53,19,31,.47)}
+.statement .statement-principles li::before{content:none}
+/* Processo — intro, then FOUR full-width rows, then centered title + five boxes. */
+.method .method-intro {position:relative!important;top:auto!important;align-self:auto;min-width:0;width:100%;height:auto}
+.method .editorial-heading-row h2 { max-width:930px; }
+.method .editorial-deck {position:relative;z-index:1;margin-top:clamp(19px,3vw,38px)}
+.method .editorial-deck p {margin:0;font:400 clamp(22px,2vw,31px)/1.3 var(--serif);color:var(--wine);max-width:630px}
+.method .method-steps {position:relative;width:100%;min-width:0;padding:0 0 0;margin:0 0 clamp(70px,8vw,130px)}
+.method .method-steps details {border-top:1px solid var(--ed-rule)}
+.method .method-steps details:last-child{border-bottom:1px solid var(--ed-rule)}
+.method .method-steps details summary{
+  display:grid;grid-template-columns:clamp(35px,5vw,70px) minmax(0,1fr) 32px;
+  gap:clamp(10px,3vw,34px);align-items:center;
+  padding:clamp(23px,2.4vw,38px) 0;
+}
+.method .method-steps summary>span:first-child {
+  font:700 clamp(12px,1.15vw,16px)/1.2 var(--ed-label);letter-spacing:.1em;
+  color:var(--wine);opacity:.75;
+}
+.method .method-steps strong{
+  font:600 clamp(27px,3vw,45px)/1.02 var(--ed-label);letter-spacing:-.01em;
+  color:var(--ink);overflow-wrap:normal;
+}
+.method .method-steps .plus{font:400 28px/1 var(--sans);text-align:right;color:var(--wine)}
+.method .method-steps .step-content{padding:0 0 clamp(25px,3vw,50px) clamp(45px,8vw,105px)}
+.method .method-steps .step-content p{margin:10px 0; max-width:760px; font:400 clamp(16px,1.3vw,20px)/1.5 var(--serif)}
+.method .project-scope {
+  width:100%;max-width:none;margin:0;padding:0;border:0;min-width:0;
+  text-align:center;display:block;
+}
+.method .project-scope>span {
+  display:inline-flex;min-height:44px;align-items:center;justify-content:center;
+  padding:12px 23px;border:1px solid var(--ed-rule);
+  color:var(--wine);font:700 clamp(13px,1.25vw,17px)/1.1 var(--ed-label);
+  letter-spacing:.13em;text-transform:uppercase;
+}
+.method .project-scope ul {
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(7px,1.1vw,17px);
+  margin:clamp(24px,3.7vw,50px) 0 0;padding:0;max-width:none;width:100%;list-style:none;
+}
+.method .project-scope li{
+  min-width:0;min-height:clamp(72px,7vw,110px);display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--ed-rule);padding:clamp(9px,1vw,17px);
+  font:600 clamp(12px,1.1vw,16px)/1.22 var(--ed-label);letter-spacing:.025em;
+  color:var(--wine);text-align:center;
+}
+/* Projetos: opening only. Gallery, dossiers, cards and motion untouched. */
+.works-section .section-masthead.editorial-opening {
+  display:block; width:100%; min-width:0;
+  margin:0 0 clamp(45px,6vw,88px);
+  padding:clamp(116px,10vw,164px) 0 clamp(50px,5vw,84px);
+  align-items:initial;justify-content:initial;
+}
+.works-section .section-masthead .editorial-heading-row h2{max-width:950px}
+/* Motion: entrance once + subtle scroll-linked layer; word scales to its container
+   via JS only on load/resize/language changes, never on scroll. */
+@media(max-width:1000px){
+  .editorial-heading-row h2,.statement-body.editorial-heading-row h2,
+  .method-intro .editorial-heading-row h2,.section-masthead .editorial-heading-row h2{font-size:clamp(48px,7vw,88px)}
+  .editorial-heading-row,.statement-body.editorial-heading-row{grid-template-columns:minmax(0,1fr) clamp(115px,19vw,180px)}
+}
+@media(max-width:700px){
+  .statement {padding:0 21px clamp(78px,13vw,100px)}
+  .method.shell{padding:0 21px clamp(85px,14vw,115px)}
+  .editorial-opening,.works-section .section-masthead.editorial-opening {
+    padding:clamp(96px,24vw,130px) 0 clamp(41px,9vw,65px);
+  }
+  .editorial-opening .editorial-word{top:14px;font-size:clamp(72px,21vw,145px)}
+  .editorial-index,.statement-top.editorial-index {margin:0 0 clamp(22px,6vw,35px);font-size:13px}
+  .editorial-heading-row,.statement-body.editorial-heading-row {
+    display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(22px,6vw,37px);
+  }
+  .editorial-heading-row h2,.statement-body.editorial-heading-row h2,
+  .method-intro .editorial-heading-row h2,.section-masthead .editorial-heading-row h2 {
+    font-size:clamp(40px,11vw,67px);line-height:1.055;max-width:100%;letter-spacing:-.01em;
+  }
+  .editorial-metadata{justify-self:start;align-self:start;display:flex;flex-direction:row;flex-wrap:wrap;
+    column-gap:clamp(12px,4vw,25px);row-gap:9px;font-size:12px;line-height:1.1;padding:0}
+  .editorial-metadata span{max-width:calc(50% - 10px)}
+  .statement .statement-reading{padding:0 0 clamp(70px,12vw,100px)}
+  .statement .statement-reading .statement-aside{display:grid;grid-template-columns:1fr;gap:20px}
+  .statement .statement-reading .statement-aside p{font-size:clamp(18px,4.7vw,22px);line-height:1.48}
+  .statement .statement-reading .statement-aside .about-security{grid-column:1;font-size:14px}
+  .statement .statement-bottom.editorial-about-bottom{gap:clamp(67px,12vw,95px)}
+  .statement .philosophy-kicker,.statement .statement-principles h3{font-size:19px;margin-bottom:23px}
+  .statement .statement-philosophy blockquote{font-size:clamp(30px,7.6vw,43px)}
+  .statement .statement-philosophy p{font-size:17px}
+  .statement .statement-principles ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .statement .statement-principles li{padding:clamp(14px,5vw,24px);min-height:clamp(120px,29vw,160px);font-size:clamp(18px,4.4vw,25px)}
+  .method .editorial-deck p{font-size:23px}
+  .method .method-steps{margin-bottom:clamp(64px,12vw,95px)}
+  .method .method-steps details summary{grid-template-columns:26px minmax(0,1fr) 26px;gap:12px;padding:19px 0}
+  .method .method-steps strong{font-size:clamp(23px,6.2vw,32px)}
+  .method .method-steps .step-content{padding-left:38px;padding-bottom:24px}
+  .method .method-steps .step-content p{font-size:16px}
+  .method .project-scope ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:25px}
+  .method .project-scope li{font-size:16px;min-height:72px;padding:13px}
+  .method .project-scope li:last-child:nth-child(odd){grid-column:1/-1}
+  .works-section .section-masthead.editorial-opening{margin-bottom:clamp(35px,8vw,55px)}
+}
+@media(max-width:360px){
+ .editorial-heading-row h2,.statement-body.editorial-heading-row h2,
+ .method-intro .editorial-heading-row h2,.section-masthead .editorial-heading-row h2{font-size:40px}
+ .editorial-metadata{font-size:11px}
+ .method .project-scope li{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+ .editorial-opening .editorial-word,.editorial-opening .editorial-word.is-in-view{opacity:.092;transform:translate3d(-50%,0,0)!important;transition:none}
+}
+
+
+/* V32 — RESTAURAÇÃO DA IDENTIDADE ORIGINAL.
+   SOMENTE cores e tipografia que a v31 alterou por engano.
+   Mantém intactas as grades, o posicionamento, os conteúdos, a galeria,
+   a Hero, o Contato, o Footer e todo o JavaScript/Lenis do original. */
+
+/* Paleta EXATA do original: Sobre bordô, restantes sobre creme. */
+.statement { background:var(--wine); color:var(--paper); }
+.method.shell,.works-section.shell { background:var(--cream); color:var(--ink); }
+
+/* Sem fontes novas: somente Inter Display + EB Garamond, definidas em styles.css. */
+.editorial-index,.statement-top.editorial-index {
+  color:var(--wine-light);font:600 clamp(10px,.85vw,12px)/1.4 var(--sans);
+  letter-spacing:.14em;
+}
+.statement .editorial-index,.statement .statement-top.editorial-index {color:#d1aeb3;}
+.editorial-metadata {
+  color:var(--wine-light);font:600 clamp(10px,.85vw,12px)/1.45 var(--sans);
+  letter-spacing:.1em;gap:7px;
+}
+.statement .editorial-metadata {color:#dbc3bb;}
+.editorial-opening .editorial-word {font-family:var(--sans);font-weight:760;letter-spacing:-.085em;}
+.statement .editorial-word {color:var(--paper);}
+.method .editorial-word,.works-section .editorial-word {color:var(--wine);}
+
+/* Títulos voltam à mesma família, peso e contraste do portfólio original. */
+.statement .statement-body.editorial-heading-row h2 {
+  font:600 clamp(44px,5.5vw,96px)/1.02 var(--sans);
+  letter-spacing:-.065em;text-transform:none;color:var(--paper);
+}
+.method .method-intro .editorial-heading-row h2,
+.works-section .section-masthead .editorial-heading-row h2 {
+  font:660 clamp(43px,5.4vw,91px)/1.01 var(--sans);
+  letter-spacing:-.065em;text-transform:none;color:var(--ink);
+}
+
+/* Textos de apresentação com a EB Garamond original, sem troca de conteúdo. */
+.statement .statement-reading .statement-aside p {
+  font:400 clamp(17px,1.6vw,25px)/1.48 var(--serif);
+  letter-spacing:-.025em;color:var(--paper);
+}
+.statement .statement-reading .statement-aside .about-security {
+  border-color:rgba(255,255,255,.20);font:400 13px/1.65 var(--sans);
+  letter-spacing:0;color:#dbc3bb;opacity:.8;
+}
+
+/* Filosofia e Princípios: MESMO FUNDO BORDÔ, texto creme, bordas suaves;
+   muda somente a disposição solicitada (centralizar + grade 2x2). */
+.statement .statement-bottom.editorial-about-bottom {color:var(--paper);}
+.statement .philosophy-kicker,.statement .statement-principles h3 {
+  font:600 11px/1.4 var(--sans);letter-spacing:.14em;color:#d1aeb3;
+}
+.statement .statement-philosophy blockquote {
+  font:400 clamp(27px,3.1vw,51px)/1.15 var(--serif);
+  font-style:normal;letter-spacing:-.02em;color:var(--paper);
+}
+.statement .statement-philosophy p {
+  font:400 14px/1.7 var(--sans);color:#dbc3bb;opacity:.78;
+}
+.statement .statement-principles ol {border-color:rgba(255,255,255,.27);}
+.statement .statement-principles li {
+  font:500 clamp(15px,1.4vw,20px)/1.38 var(--sans);
+  color:var(--paper);
+}
+.statement .statement-principles li:nth-child(odd),
+.statement .statement-principles li:nth-child(-n+2) {border-color:rgba(255,255,255,.27);}
+
+/* Processo: Inter Display nos títulos e controles, EB Garamond no apoio. */
+.method .editorial-deck p {font:400 22px/1.2 var(--serif);color:var(--ink);}
+.method .method-steps summary>span:first-child {font:500 11px/1.4 var(--sans);letter-spacing:.08em;color:var(--muted);}
+.method .method-steps strong {
+  font:520 clamp(23px,2.4vw,39px)/1.12 var(--sans);
+  letter-spacing:-.055em;color:var(--ink);
+}
+.method .method-steps details[open] strong {color:var(--wine);}
+.method .method-steps .plus {font:350 22px/1 var(--sans);color:var(--ink);}
+.method .method-steps .step-content p {font:400 clamp(14px,1.1vw,17px)/1.6 var(--sans);color:#655758;}
+.method .method-steps .step-content .step-tags {
+  font:600 10px/1.6 var(--sans);letter-spacing:.11em;color:var(--muted);
+}
+.method .project-scope>span {
+  font:600 11px/1.5 var(--sans);letter-spacing:.15em;color:var(--ink);
+}
+.method .project-scope li {
+  font:500 clamp(11px,.9vw,13px)/1.4 var(--sans);
+  letter-spacing:0;color:var(--ink);
+}
+
+/* Mesmo sistema tipográfico nas telas pequenas; não volta a mudar para Anton/Barlow. */
+@media(max-width:700px){
+  .editorial-index,.statement-top.editorial-index {font-size:10px;}
+  .editorial-metadata {font-size:10px;}
+  .statement .statement-body.editorial-heading-row h2 {
+    font-size:clamp(36px,9vw,60px);line-height:1.05;
+  }
+  .method .method-intro .editorial-heading-row h2,
+  .works-section .section-masthead .editorial-heading-row h2 {
+    font-size:clamp(35px,8.7vw,59px);line-height:1.05;
+  }
+  .statement .statement-reading .statement-aside p {font-size:clamp(17px,4.4vw,21px);}
+  .statement .statement-reading .statement-aside .about-security {font-size:13px;}
+  .statement .statement-philosophy blockquote {font-size:clamp(27px,7.1vw,41px);}
+  .statement .statement-principles li {font-size:clamp(13px,3.6vw,17px);}
+  .method .method-steps strong {font-size:clamp(20px,5.1vw,26px);}
+  .method .method-steps .step-content p {font-size:14px;}
+  .method .project-scope li {font-size:11px;}
+}
+
+/* Fonte: editorial-v33.css */
+/* v33 — Correcao pontual da composição editorial.
+ * Sobre / Processo / Projetos: índice e título compartilham o mesmo eixo
+ * central de leitura; a palavra de fundo fica centralizada na abertura;
+ * o apoio fica imediatamente ao lado do título. Outros blocos inalterados.
+ * A Hero, cores, fontes originais, galeria horizontal, Contato e Footer
+ * não são estilizados aqui. */
+
+/* Espaço de leitura único: centralizado na largura útil da seção. */
+.editorial-opening > .editorial-index,
+.editorial-opening > .statement-top.editorial-index,
+.editorial-opening > .editorial-heading-row,
+.editorial-opening > .statement-body.editorial-heading-row,
+.editorial-opening > .editorial-deck,
+.statement > .statement-reading {
+  width:min(100%, 980px);
+  max-width:980px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Índice sem linha comprida; mantém o texto original 01 - SOBRE etc. */
+.editorial-opening .editorial-index,
+.editorial-opening .statement-top.editorial-index {
+  display:flex;
+  align-items:center;
+  padding:0;
+  margin-top:0;
+  margin-bottom:clamp(19px,2.4vw,34px);
+  gap:0;
+}
+.editorial-opening .editorial-index::before,
+.editorial-opening .editorial-index::after,
+.editorial-opening .statement-top.editorial-index::before,
+.editorial-opening .statement-top.editorial-index::after {
+  content:none!important;
+  display:none!important;
+}
+
+/* Na referência, a palavra gigante está centralizada ATRÁS do texto,
+   sem deslocar a abertura para a esquerda ou criar uma faixa isolada. */
+.editorial-opening .editorial-word {
+  top:clamp(0px,.6vw,12px);
+  left:50%;
+  text-align:center;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+/* Título e índice no mesmo eixo; a informação lateral pertence à área de
+   leitura, em vez de ficar perdida na borda direita do monitor. */
+.editorial-opening .editorial-heading-row,
+.editorial-opening .statement-body.editorial-heading-row {
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) clamp(130px, 12vw, 170px);
+  gap:clamp(20px,3vw,44px);
+  align-items:center;
+  padding:0;
+}
+.editorial-opening .editorial-metadata {
+  align-self:center;
+  justify-self:start;
+  padding:0;
+  margin:0;
+  text-align:left;
+  width:auto;
+  max-width:100%;
+  gap:7px;
+}
+
+/* Preservamos Inter Display / EB Garamond originais, alterando apenas
+   escala e composição dos três títulos monumentais. */
+.statement .statement-body.editorial-heading-row h2,
+.method .method-intro .editorial-heading-row h2,
+.works-section .section-masthead .editorial-heading-row h2 {
+  max-width:100%;
+  min-width:0;
+  overflow-wrap:normal;
+  word-break:normal;
+  text-wrap:pretty;
+  letter-spacing:-.064em;
+}
+/* O Sobre ganhou uma frase longa aprovada: escala editorial controlada. */
+.statement .statement-body.editorial-heading-row h2 {
+  font-size:clamp(38px, 4.15vw, 66px);
+  line-height:1.075;
+  font-weight:700;
+}
+.method .method-intro .editorial-heading-row h2,
+.works-section .section-masthead .editorial-heading-row h2 {
+  font-size:clamp(45px, 5.0vw, 82px);
+  line-height:1.035;
+}
+
+/* Corpo novo, SOMENTE as duas frases enviadas. Mesma EB Garamond,
+   alinhadas ao eixo do índice/título, em duas colunas no desktop. */
+.statement > .statement-reading {
+  position:relative;
+  padding-top:clamp(15px,2.2vw,31px);
+  padding-bottom:clamp(85px,9vw,140px);
+}
+.statement .statement-reading .statement-aside {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  column-gap:clamp(26px,4vw,68px);
+  row-gap:0;
+  max-width:none;
+  width:100%;
+  margin:0;
+  align-items:start;
+}
+.statement .statement-reading .statement-aside p,
+.statement .statement-reading .statement-aside p.about-security {
+  grid-column:auto;
+  border:0;
+  padding:0;
+  margin:0;
+  opacity:1;
+  color:var(--paper);
+  font:400 clamp(17px,1.48vw,23px)/1.43 var(--serif);
+  letter-spacing:-.012em;
+  max-width:100%;
+}
+
+/* Hero NÃO recebe nenhuma regra nova. Aberturas refluem no mobile,
+   mas mantêm palavra de fundo central, sem corte e ligada ao scroll. */
+@media (max-width:800px) {
+  .editorial-opening > .editorial-index,
+  .editorial-opening > .statement-top.editorial-index,
+  .editorial-opening > .editorial-heading-row,
+  .editorial-opening > .statement-body.editorial-heading-row,
+  .editorial-opening > .editorial-deck,
+  .statement > .statement-reading {width:100%;max-width:100%;}
+  .editorial-opening .editorial-heading-row,
+  .editorial-opening .statement-body.editorial-heading-row {
+    grid-template-columns:minmax(0,1fr);
+    gap:clamp(18px,4.7vw,28px);
+  }
+  .editorial-opening .editorial-metadata {
+    flex-flow:row wrap;
+    column-gap:clamp(12px,3vw,22px);
+    row-gap:8px;
+  }
+  .statement .statement-body.editorial-heading-row h2 {
+    font-size:clamp(34px,6.7vw,55px);
+    line-height:1.075;
+  }
+  .method .method-intro .editorial-heading-row h2,
+  .works-section .section-masthead .editorial-heading-row h2 {
+    font-size:clamp(35px,7.7vw,66px);
+  }
+  .statement .statement-reading .statement-aside {column-gap:22px;}
+}
+@media(max-width:700px) {
+  .editorial-opening .editorial-index,
+  .editorial-opening .statement-top.editorial-index {margin-bottom:22px;}
+  .statement .statement-body.editorial-heading-row h2 {
+    font-size:clamp(32px,8.1vw,49px);
+    line-height:1.08;
+  }
+  .editorial-opening .editorial-metadata {font-size:10px;}
+  .statement > .statement-reading {padding-top:5px;}
+  .statement .statement-reading .statement-aside {grid-template-columns:1fr;gap:19px;}
+  .statement .statement-reading .statement-aside p,
+  .statement .statement-reading .statement-aside p.about-security {
+    font-size:clamp(17px,4.35vw,21px);
+    line-height:1.46;
+  }
+}
+@media(max-width:360px) {
+  .statement .statement-body.editorial-heading-row h2 {font-size:clamp(29px,8.2vw,34px)}
+}
+
+/* Fonte: editorial-v34.css */
+/* v34 — Escopo: somente a apresentação da seção Sobre.
+   Um único parágrafo de leitura, usando exatamente as duas frases aprovadas.
+   Mesmas famílias Inter Display / EB Garamond, mesmo bordô e creme.
+   Hero, filosofia, princípios, processo, projetos, galeria e footer intocados. */
+
+/* Título longo: compasso mais equilibrado, sem trocar a fonte original. */
+.statement .about-opening .editorial-heading-row {
+  grid-template-columns:minmax(0, 1fr) clamp(125px, 11vw, 155px);
+  column-gap:clamp(23px, 2.5vw, 35px);
+}
+.statement .about-opening .statement-body.editorial-heading-row h2 {
+  font-family:var(--sans);
+  font-weight:650;
+  font-size:clamp(39px, 3.95vw, 61px);
+  line-height:1.085;
+  letter-spacing:-.062em;
+  max-width:100%;
+  text-wrap:pretty;
+}
+
+/* A abertura termina junto ao título: sem faixa vazia antes da leitura. */
+.statement .about-opening {
+  padding-bottom:clamp(36px, 4vw, 59px);
+}
+.statement > .statement-reading {
+  padding-top:0;
+  padding-bottom:clamp(72px, 7vw, 106px);
+}
+.statement .statement-reading .statement-aside {
+  display:block;
+  width:100%;
+  max-width:100%;
+  margin:0;
+}
+.statement .statement-reading .statement-aside .about-unified-copy {
+  display:block;
+  width:100%;
+  max-width:min(100%, 760px);
+  margin:0;
+  padding:0;
+  font-family:var(--serif);
+  font-style:normal;
+  font-weight:400;
+  font-size:clamp(20px, 1.7vw, 25px);
+  line-height:1.43;
+  letter-spacing:-.016em;
+  color:var(--paper);
+  text-wrap:pretty;
+}
+/* O site original define spans de .statement-aside como metadados (9px).
+   Aqui são apenas trechos traduzíveis dentro de UM parágrafo. */
+.statement .statement-reading .statement-aside .about-unified-copy span {
+  font:inherit;
+  line-height:inherit;
+  letter-spacing:inherit;
+  color:inherit;
+  opacity:1;
+}
+
+@media (max-width:800px) {
+  .statement .about-opening .editorial-heading-row {
+    grid-template-columns:minmax(0, 1fr);
+  }
+  .statement .about-opening .statement-body.editorial-heading-row h2 {
+    font-size:clamp(37px, 6.7vw, 53px);
+    line-height:1.085;
+  }
+}
+@media (max-width:700px) {
+  .statement .about-opening { padding-bottom:clamp(28px, 7vw, 42px); }
+  .statement > .statement-reading {padding-bottom:clamp(60px, 12vw, 85px);}
+  .statement .about-opening .statement-body.editorial-heading-row h2 {
+    font-size:clamp(32px, 8.15vw, 49px);
+    line-height:1.09;
+  }
+  .statement .statement-reading .statement-aside .about-unified-copy {
+    font-size:clamp(19px, 4.85vw, 22px);
+    line-height:1.49;
+    max-width:100%;
+  }
+}
+@media (max-width:360px) {
+  .statement .about-opening .statement-body.editorial-heading-row h2 {
+    font-size:clamp(29px, 8.2vw, 34px);
+  }
+}
+
+/* Fonte: typography-portfolioweb.css */
+/* v35 — EXPERIÊNCIA PURAMENTE TIPOGRÁFICA.
+   Valores e famílias transcritos do PortfolioWeb(3).zip/styles.css:
+   Anton (display), Barlow Condensed (interface), DM Sans (leitura).
+   Não muda cores, texto, layout, grid, margens, padding, efeitos ou JS.
+   Escalas mapeadas por função equivalente: textos e seções diferentes não
+   têm equivalência literal 1:1 no PortfolioWeb, então os valores são usados
+   de acordo com sua função editorial, não por comprimento do texto. */
+:root {
+  --pw-display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --pw-label:'Barlow Condensed','Arial Narrow',sans-serif;
+  --pw-copy:'DM Sans',Arial,sans-serif;
+  --ed-display:var(--pw-display);
+  --ed-label:var(--pw-label);
+}
+body {font-family:var(--pw-label);font-size:16px;line-height:1.5;}
+/* Interface: índice, navegação, marca e pequenos sinais */
+.brand strong {font-family:var(--pw-display);font-size:28px;font-weight:400;line-height:1;letter-spacing:-.025em;}
+.brand small {font-family:var(--pw-copy);font-size:11px;font-weight:400;line-height:1.35;letter-spacing:0;}
+.nav a {font-family:var(--pw-label);font-size:12px;font-weight:800;letter-spacing:.08em;line-height:1.2;text-transform:uppercase;}
+.lang-toggle,.folio-head,.hero-spine,.hero-overline,.overline-edition,.index-no,.index-kind,
+.gallery-panel-id,.gallery-fraction,.gallery-directions,.dossier-number,.dossier-metadata,
+.outro-meta,.site-footer,.footer-brand small {
+  font-family:var(--pw-label);font-size:11px;font-weight:800;line-height:1.35;letter-spacing:.12em;
+}
+.lang-toggle {font-size:12px;letter-spacing:.08em;}
+/* Hero — não alterar sua geometria, conteúdo nem imagem à direita. */
+.hero h1 {font-family:var(--pw-display);font-size:clamp(40px,6.2vw,105px);font-weight:400;line-height:1.03;letter-spacing:.005em;}
+.hero h1 em {font-family:inherit;font-weight:400;font-style:normal;}
+.hero-subrow p {font-family:var(--pw-display);font-size:clamp(24px,3vw,45px);font-weight:400;line-height:1.14;letter-spacing:.005em;}
+/* Aberturas: exatamente as mesmas três famílias e escalas de componentes
+   correspondentes em .works/.services/.playground no PortfolioWeb. */
+.editorial-opening .editorial-word {
+  font-family:var(--pw-display);font-weight:400;
+  font-size:clamp(130px,29vw,520px);line-height:1;letter-spacing:-.05em;
+}
+.editorial-opening .editorial-index,
+.editorial-opening .statement-top.editorial-index,
+.editorial-opening .editorial-index .section-index,
+.editorial-opening .statement-top.editorial-index span {
+  font-family:var(--pw-label);font-size:12px;font-weight:800;line-height:1.35;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.editorial-opening .editorial-metadata,
+.editorial-opening .editorial-metadata span {
+  font-family:var(--pw-label);font-size:14px;font-weight:600;line-height:1.35;
+  letter-spacing:0;text-transform:uppercase;
+}
+.statement .about-opening .statement-body.editorial-heading-row h2,
+.method .method-intro .editorial-heading-row h2,
+.works-section .section-masthead .editorial-heading-row h2 {
+  font-family:var(--pw-display);font-size:clamp(26px,3.85vw,64px);
+  font-weight:400;line-height:1.15;letter-spacing:.005em;text-transform:uppercase;
+}
+/* O bloco de leitura do Sobre utiliza o mesmo DM Sans do corpo da referência.
+   Todas as palavras originais e a estrutura de um só parágrafo permanecem. */
+.statement .statement-reading .statement-aside .about-unified-copy,
+.statement .statement-reading .statement-aside .about-unified-copy span {
+  font-family:var(--pw-copy);font-size:16px;font-weight:400;font-style:normal;
+  line-height:1.8;letter-spacing:0;
+}
+/* Filosofia e princípios: mesma hierarquia da referência, sem redesenhar caixas. */
+.statement .philosophy-kicker,
+.statement .statement-principles h3 {
+  font-family:var(--pw-label);font-size:13px;font-weight:800;line-height:1.25;
+  letter-spacing:.16em;text-transform:uppercase;
+}
+.statement .statement-philosophy blockquote {
+  font-family:var(--pw-display);font-size:clamp(24px,3vw,45px);
+  font-weight:400;font-style:normal;line-height:1.14;letter-spacing:.005em;
+}
+.statement .statement-philosophy p {
+  font-family:var(--pw-copy);font-size:13px;font-weight:400;line-height:1.85;letter-spacing:0;
+}
+.statement .statement-principles li {
+  font-family:var(--pw-label);font-size:clamp(16px,1.9vw,31px);
+  font-weight:600;line-height:1.15;letter-spacing:0;
+}
+/* Processo: cabeçalhos e acordeões seguem exatamente escalas análogas
+   do PortfolioWeb, preservando suas quatro etapas e o escopo em cinco caixas. */
+.method .editorial-deck p {
+  font-family:var(--pw-copy);font-size:clamp(12px,1vw,15px);
+  font-weight:500;line-height:1.85;letter-spacing:.015em;
+}
+.method .method-steps summary>span:first-child,
+.method .method-steps .step-content .step-tags,
+.method .project-scope>span,
+.method .project-scope li {
+  font-family:var(--pw-label);font-size:12px;font-weight:800;
+  line-height:1.35;letter-spacing:.12em;
+}
+.method .method-steps strong {
+  font-family:var(--pw-display);font-size:clamp(40px,6.2vw,105px);
+  font-weight:400;line-height:1.03;letter-spacing:.005em;
+}
+.method .method-steps .plus {font-family:var(--pw-label);font-size:35px;font-weight:400;line-height:1;}
+.method .method-steps .step-content p {
+  font-family:var(--pw-copy);font-size:16px;font-weight:400;
+  line-height:1.8;letter-spacing:0;
+}
+/* Projetos: tipografia dos nomes/captions, mas sem tocar no movimento,
+   quadros, posicionamentos, previews ou CSS visual da galeria. */
+.gallery-copy h3,.gallery-panel.panel-elegant .gallery-copy h3 {
+  font-family:var(--pw-display);font-size:clamp(23px,3vw,46px);
+  font-weight:400;line-height:1.08;letter-spacing:.005em;
+}
+.gallery-copy h3 i {font-family:inherit;font-size:inherit;font-weight:inherit;font-style:normal;letter-spacing:inherit;line-height:inherit;}
+.gallery-copy p,.dossier-description,.work-annotation p,
+.pair-caption p,.work-dossier p {
+  font-family:var(--pw-copy);font-size:13px;font-weight:400;
+  line-height:1.85;letter-spacing:0;
+}
+.gallery-panel .gallery-visit,.gallery-skip,.work-dossier .dossier-link,
+.work-annotation .underlink,.gallery-panel-id {
+  font-family:var(--pw-label);font-size:12px;font-weight:800;
+  line-height:1.25;letter-spacing:.08em;
+}
+.work-dossier h3,.work-annotation h3,.pair-caption h3 {
+  font-family:var(--pw-display);font-size:clamp(23px,3vw,46px);
+  font-style:normal;font-weight:400;line-height:1.08;letter-spacing:.005em;
+}
+.work-dossier h3 i,.work-annotation h3 i,.pair-caption h3 i{font:inherit;}
+/* Fechamento: conteúdo intacto, tipografia equivalente ao bloco Contact. */
+.outro-center p {font-family:var(--pw-copy);font-size:13px;font-weight:400;line-height:1.85;letter-spacing:0;}
+.outro h2 {font-family:var(--pw-display);font-size:clamp(46px,6vw,98px);font-weight:400;line-height:1.06;letter-spacing:.005em;}
+.outro h2 i{font-family:inherit;font-weight:inherit;font-style:normal;letter-spacing:inherit;line-height:inherit;}
+.outro-cta{font-family:var(--pw-label);font-size:12px;font-weight:800;letter-spacing:.08em;}
+.footer-brand {font-family:var(--pw-display);font-size:21px;font-weight:400;line-height:1.1;letter-spacing:0;}
+.site-footer a,.site-footer>span{font-family:var(--pw-label);font-size:11px;font-weight:700;letter-spacing:.12em;}
+@media(max-width:950px){
+  .editorial-opening .editorial-metadata,.editorial-opening .editorial-metadata span{font-size:12px;}
+}
+@media(max-width:650px){
+  .brand strong{font-size:21px;}
+  .brand small{font-size:10px;}
+  .nav a{font-size:clamp(60px,16vw,110px);font-family:var(--pw-display);font-weight:400;line-height:1.08;letter-spacing:.005em;}
+  .hero h1{font-size:clamp(40px,10vw,62px);line-height:1.03;}
+  .hero-subrow p{font-size:clamp(24px,7vw,37px);line-height:1.14;}
+  .editorial-opening .editorial-word{font-size:44vw;}
+  .editorial-opening .editorial-index,
+  .editorial-opening .statement-top.editorial-index,
+  .editorial-opening .editorial-index .section-index,
+  .editorial-opening .statement-top.editorial-index span{font-size:10px;}
+  .editorial-opening .editorial-metadata,
+  .editorial-opening .editorial-metadata span{font-size:11px;}
+  .statement .about-opening .statement-body.editorial-heading-row h2,
+  .method .method-intro .editorial-heading-row h2,
+  .works-section .section-masthead .editorial-heading-row h2{
+    font-size:clamp(25px,6.4vw,41px);line-height:1.15;
+  }
+  .statement .statement-reading .statement-aside .about-unified-copy,
+  .statement .statement-reading .statement-aside .about-unified-copy span{font-size:13px;line-height:1.85;}
+  .statement .statement-philosophy blockquote{font-size:25px;line-height:1.14;}
+  .statement .statement-principles li{font-size:15px;line-height:1.15;}
+  .method .editorial-deck p{font-size:11px;line-height:1.85;}
+  .method .method-steps strong{font-size:clamp(36px,10vw,62px);line-height:1.03;}
+  .method .method-steps .step-content p{font-size:13px;line-height:1.85;}
+  .method .project-scope li{font-size:11px;}
+  .gallery-copy h3,.gallery-panel.panel-elegant .gallery-copy h3{font-size:clamp(24px,7vw,37px);line-height:1.08;}
+  .gallery-copy p,.work-dossier p,.dossier-description{font-size:12px;line-height:1.65;}
+  .outro h2{font-size:clamp(42px,11vw,70px);}
+  .footer-brand{font-size:17px;}
+  .site-footer a,.site-footer>span{font-size:10px;}
+}
+
+
+/* v36 — APENAS FONTES: Hero, cabeçalho visível na imagem e Contato/Footer.
+   Restaura a tipografia da v34 nesses blocos. Todo o restante mantém a v35.
+   Sem alterações de layout, cores, conteúdo ou animações. */
+.site-header,
+.hero,
+.outro,
+.site-footer { font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.5;letter-spacing:normal; }
+/* Cabeçalho/assinatura */
+.brand strong {font-family:var(--sans);font-size:13px;font-weight:650;line-height:1.5;letter-spacing:-.035em;}
+.brand small {font-family:var(--sans);font-size:10px;font-weight:400;line-height:1.5;letter-spacing:.04em;}
+.nav a {font-family:var(--sans);font-size:12px;font-weight:560;line-height:1.5;letter-spacing:-.018em;text-transform:none;}
+.lang-toggle {font:600 10px/1.3 var(--sans);letter-spacing:.13em;text-transform:none;}
+.folio-head {font-family:var(--sans);font-size:9px;font-weight:400;line-height:1.5;letter-spacing:.13em;}
+/* Hero original — somente tipografia */
+.hero-spine {font-family:var(--sans);font-size:9px;font-weight:570;line-height:1.5;letter-spacing:.12em;text-transform:none;}
+.hero-overline {font-family:var(--sans);font-size:11px;font-weight:400;line-height:1.4;letter-spacing:.015em;}
+.hero h1 {font-family:var(--sans);font-size:clamp(76px,7.6vw,150px);font-weight:670;line-height:.82;letter-spacing:-.089em;text-transform:none;}
+.hero h1 em {font-family:inherit;font-style:normal;font-weight:760;letter-spacing:inherit;line-height:inherit;}
+.hero-subrow p {font:normal clamp(24px,2.5vw,43px)/1.01 var(--serif);letter-spacing:-.045em;text-transform:none;}
+/* Contato e Footer originais — somente tipografia */
+.outro-meta {font-family:var(--sans);font-size:10px;font-weight:400;line-height:1.5;letter-spacing:.11em;}
+.outro-center p {font:normal 24px/1 var(--serif);letter-spacing:normal;}
+.outro h2 {font:600 clamp(80px,10vw,170px)/.84 var(--sans);letter-spacing:-.09em;text-transform:none;}
+.outro h2 i {font:italic 400 .83em var(--serif);letter-spacing:-.06em;text-transform:none;}
+.outro-cta {font-family:var(--sans);font-size:14px;font-weight:400;line-height:1.5;letter-spacing:normal;text-transform:none;}
+.site-footer {font-family:var(--sans);font-size:11px;font-weight:400;line-height:1.5;letter-spacing:normal;text-transform:none;}
+.footer-brand {font-family:var(--sans);font-size:12px;font-weight:600;line-height:1.25;letter-spacing:normal;}
+.footer-brand small {font-family:var(--sans);font-size:smaller;font-weight:400;line-height:inherit;letter-spacing:normal;}
+.site-footer a,.site-footer>span {font-family:var(--sans);font-size:11px;font-weight:400;line-height:1.5;letter-spacing:normal;text-transform:none;}
+@media(max-width:1260px){.hero h1{font-size:clamp(70px,7vw,110px);}}
+@media(max-width:1000px){.nav a{font-family:var(--serif);font-size:clamp(22px,3vw,30px);}}
+@media(max-width:920px){.hero h1{font-size:clamp(56px,7.2vw,80px);}.hero-subrow p{font-size:28px;}}
+@media(max-width:700px){
+  .brand strong{font-size:12px;}
+  .brand small{font-size:9px;}
+  .nav a{font-family:var(--serif);font-size:clamp(22px,3vw,30px);letter-spacing:-.04em;line-height:1.5;}
+  .hero-overline{font-size:10px;}
+  .hero h1{font-size:clamp(55px,12vw,92px);}
+  .hero-subrow p{font-size:clamp(25px,6vw,37px);}
+  .outro-center p{font-size:22px;}
+  .outro h2{font-size:clamp(69px,11vw,110px);}
+  .site-footer>span{font-size:10px;}
+}
+@media(max-width:365px){
+ .hero h1{font-size:clamp(50px,12vw,62px);}
+ .hero-overline{font-size:9px;}
+ .outro h2{font-size:59px;}
+}
+
+/* Fonte: editorial-v37.css */
+/* v37 — Ajuste EXCLUSIVO do parágrafo complementar do Sobre.
+   As famílias, tamanhos, cores, textos e demais estilos permanecem como v36.
+   Centralização no eixo da Filosofia e linhas de diferentes comprimentos
+   com acabamento editorial (sem colunas e sem interferência no scroll). */
+.statement .statement-reading .statement-aside .about-unified-copy {
+  width:min(100%, 760px);
+  max-width:760px;
+  margin-inline:auto;
+  text-align:center;
+  text-wrap:pretty;
+  overflow-wrap:normal;
+  hyphens:none;
+}
+.statement > .statement-reading .statement-aside {
+  margin-inline:auto;
+}
+@media (max-width:700px) {
+  .statement .statement-reading .statement-aside .about-unified-copy {
+    width:100%;max-width:100%;text-align:center;
+    text-wrap:pretty;
+  }
+}
