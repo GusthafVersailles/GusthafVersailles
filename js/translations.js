@@ -75,19 +75,19 @@ window.GV_CONTENT = {
       "card1": {
         "eyebrow": "Plataforma de exploração tipográfica",
         "copy": "Ferramenta criada para transformar textos comuns em variações visuais com caracteres unicode, facilitando a criação de nomes, bios e composições tipográficas para uso digital. O projeto foi pensado para oferecer exploração rápida de estilos, pré-visualização imediata e cópia prática.",
-        "meta2": "Papel, UI / Front-end / Lógica de conversão",
+        "meta2": "UI / Front-end / Lógica de conversão",
         "button": "Ver case"
       },
       "card2": {
         "eyebrow": "Ferramenta de análise tipográfica",
         "copy": "Uma ferramenta interativa criada para analisar e comparar combinações tipográficas em tempo real de interface. Permite testar hierarquia, ritmo visual e legibilidade diretamente em layouts simulados.",
-        "meta2": "Papel, Interface / Experiência / UI",
+        "meta2": "Interface / Experiência / UI",
         "button": "Ver case"
       },
       "card3": {
         "eyebrow": "Página cinematográfica de alto padrão",
         "copy": "Um conceito focado em atmosfera, ritmo e profundidade emocional, usando movimento e ritmo visual para tornar a interação imersiva e memorável.",
-        "meta2": "Papel, UI Design / Front-End / Sistema de Movimento",
+        "meta2": "UI Design / Front-End / Sistema de Movimento",
         "button": "Ver case"
       },
       "cta": {
@@ -114,6 +114,7 @@ window.GV_CONTENT = {
       "navAbout": "Sobre",
       "navServices": "Processo",
       "navContact": "Contato",
+      "contactLabel": "Contato",
       "worksDeck": "Elegant Fonts · Font Pairing · Atelier Noir",
       "gallery": "GV / OBRAS",
       "galleryHint": "CONTINUE ROLANDO PARA EXPLORAR →",
@@ -205,19 +206,19 @@ window.GV_CONTENT = {
       "card1": {
         "eyebrow": "Typography exploration platform",
         "copy": "Tool created to transform common texts into visual variations with unicode characters, facilitating the creation of names, bios and typographic compositions for digital use. The project was designed to offer fast style exploration, immediate preview and practical copying.",
-        "meta2": "Role, UI / Front-end / Conversion logic",
+        "meta2": "UI / Front-end / Conversion logic",
         "button": "View Project"
       },
       "card2": {
         "eyebrow": "Typographic analysis tool",
         "copy": "An interactive tool created to analyze and compare real-time interface typographic combinations. Allows you to test hierarchy, visual rhythm and readability directly in simulated layouts.",
-        "meta2": "Role, Interface / Experience / UI",
+        "meta2": "Interface / Experience / UI",
         "button": "View Case"
       },
       "card3": {
         "eyebrow": "High-end cinematic page",
         "copy": "A concept focused on atmosphere, pacing and emotional depth, using motion and visual rhythm to make the interaction feel immersive and memorable.",
-        "meta2": "Role, UI Design / Front-End / Motion System",
+        "meta2": "UI Design / Front-End / Motion System",
         "button": "View Case"
       },
       "cta": {
@@ -244,6 +245,7 @@ window.GV_CONTENT = {
       "navAbout": "About",
       "navServices": "Process",
       "navContact": "Contact",
+      "contactLabel": "Contact",
       "worksDeck": "Elegant Fonts · Font Pairing · Atelier Noir",
       "gallery": "GV / WORKS",
       "galleryHint": "KEEP SCROLLING TO EXPLORE →",
