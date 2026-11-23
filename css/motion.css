@@ -74,7 +74,6 @@ body.motion-intro-running .hero-spine{animation:gvFade 1.2s .5s ease backwards}
 .motion-reveal.motion-in-view{opacity:1;transform:translate3d(0,0,0)}
 .motion-reveal.motion-prime{transition:none!important}
 .motion-reveal.motion-done{transform:none;transition:none;will-change:auto}
-.method-steps .motion-step-current{border-left:3px solid #924859;padding-left:16px}
 /* O destaque do passo atual e o reveal compartilham o mesmo elemento: a lista de transições precisa conter ambos. */
 .method-steps details.motion-reveal{transition:opacity 1s var(--gv-ease),transform 1.35s var(--gv-ease),padding-left .5s ease,border-color .5s ease}
 .method-steps details.motion-reveal.motion-prime{transition:none!important}
@@ -87,7 +86,7 @@ body.motion-intro-running .hero-spine{animation:gvFade 1.2s .5s ease backwards}
 body.scrolled .site-header{background:rgba(239,230,217,.92)}
 .site-header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;box-shadow:0 10px 24px rgba(42,14,25,.06);opacity:0;transition:opacity .5s ease;will-change:opacity}
 body.scrolled .site-header::after{opacity:1}
-@media(max-width:999px){.method-intro{position:static}.gallery-panel{width:100vw}.method-steps .motion-step-current{padding-left:0;border:0}}
+@media(max-width:999px){.method-intro{position:static}.gallery-panel{width:100vw}}
 @media(max-width:700px){.motion-reveal{transform:translate3d(0,34px,0)}.site-header{z-index:100}}
 @media(prefers-reduced-motion:reduce){.motion-gallery-frame{display:none!important}.works-fallback{display:block!important}.motion-reveal{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}.hero *{animation:none!important;translate:none!important}.gallery-track,.gallery-media img,.statement-aside img,.outro-graphic{transform:none!important;will-change:auto!important}}
 
