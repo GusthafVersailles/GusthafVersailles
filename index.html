@@ -4,6 +4,23 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<script>
+// Em recarregamentos, inicia na Hero sem afetar links de âncora ou voltar/avançar.
+{
+  const navigation = performance.getEntriesByType('navigation')[0];
+  if (navigation && navigation.type === 'reload') {
+    history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    scrollTo(0, 0);
+    addEventListener('pageshow', () => {
+      requestAnimationFrame(() => {
+        scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        history.scrollRestoration = 'auto';
+      });
+    }, { once: true });
+  }
+}
+</script>
 <script>/* v39: esconde a abertura até as fontes estarem prontas (motion.js remove). Rede de segurança: 4,5 s. */if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('gv-pre');setTimeout(function(){document.documentElement.classList.remove('gv-pre')},4500)}</script>
 <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" media="(pointer: fine)"/>
 <meta content="#35131f" name="theme-color"/>
@@ -98,7 +115,7 @@
 <div class="motion-gallery-header"><span class="gallery-directions" data-i18n="ui.galleryHint">CONTINUE ROLANDO PARA EXPLORAR →</span><span class="gallery-fraction" id="gallery-fraction">01 / 03</span></div>
 <div class="gallery-window"><div class="gallery-track" id="gallery-track">
 <article aria-label="Primeira obra, Atelier Noir" class="gallery-panel panel-ateliers">
-<div class="gallery-copy"><span class="gallery-panel-id">03 / WEBSITE · DIREÇÃO VISUAL</span><span aria-hidden="true" class="gallery-initial">A</span><div class="gallery-copy-bottom"><h3>Atelier <i>Noir.</i></h3><p data-i18n="works.card3.eyebrow">Página cinematográfica de alto padrão</p><a class="gallery-visit" href="projetos/AtelierNoir/index.html"><span data-i18n="ui.viewProject">Ver projeto</span><svg aria-hidden="true" class="external-arrow" fill="none" height="18" viewbox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15.5 4.5M6.5 4.5h9v9" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.7"></path></svg></a></div></div>
+<div class="gallery-copy"><span class="gallery-panel-id">01 / WEBSITE · DIREÇÃO VISUAL</span><span aria-hidden="true" class="gallery-initial">A</span><div class="gallery-copy-bottom"><h3>Atelier <i>Noir.</i></h3><p data-i18n="works.card3.eyebrow">Página cinematográfica de alto padrão</p><a class="gallery-visit" href="projetos/AtelierNoir/index.html"><span data-i18n="ui.viewProject">Ver projeto</span><svg aria-hidden="true" class="external-arrow" fill="none" height="18" viewbox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15.5 4.5M6.5 4.5h9v9" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.7"></path></svg></a></div></div>
 <a aria-label="Abrir Atelier Noir" class="gallery-media" href="projetos/AtelierNoir/index.html"><img alt="Prévia real do projeto Atelier Noir" decoding="async" loading="eager" src="assets/atelier-noir.jpg"/></a>
 </article>
 <article aria-label="Segunda obra, Font Pairing" class="gallery-panel panel-fontpair">
@@ -106,15 +123,15 @@
 <a aria-label="Abrir Font Pairing" class="gallery-media" href="projetos/FontPairing/index.html"><img alt="Prévia real do projeto Font Pairing" decoding="async" loading="eager" src="assets/font-pairing.jpg"/></a>
 </article>
 <article aria-label="Terceira obra, Elegant Fonts" class="gallery-panel panel-elegant">
-<div class="gallery-copy"><span class="gallery-panel-id">01 / FERRAMENTA TIPOGRÁFICA</span><span aria-hidden="true" class="gallery-initial">E</span><div class="gallery-copy-bottom"><h3>Elegant <i>Fonts.</i></h3><p data-i18n="works.card1.eyebrow">Plataforma de exploração tipográfica</p><a class="gallery-visit" href="projetos/ElegantFonts/index.html"><span data-i18n="ui.viewProject">Ver projeto</span><svg aria-hidden="true" class="external-arrow" fill="none" height="18" viewbox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15.5 4.5M6.5 4.5h9v9" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.7"></path></svg></a></div></div>
+<div class="gallery-copy"><span class="gallery-panel-id">03 / FERRAMENTA TIPOGRÁFICA</span><span aria-hidden="true" class="gallery-initial">E</span><div class="gallery-copy-bottom"><h3>Elegant <i>Fonts.</i></h3><p data-i18n="works.card1.eyebrow">Plataforma de exploração tipográfica</p><a class="gallery-visit" href="projetos/ElegantFonts/index.html"><span data-i18n="ui.viewProject">Ver projeto</span><svg aria-hidden="true" class="external-arrow" fill="none" height="18" viewbox="0 0 20 20" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M4.5 15.5 15.5 4.5M6.5 4.5h9v9" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.7"></path></svg></a></div></div>
 <a aria-label="Abrir Elegant Fonts" class="gallery-media" href="projetos/ElegantFonts/index.html"><img alt="Prévia real do projeto Elegant Fonts" decoding="async" loading="eager" src="assets/elegant-fonts.jpg"/></a>
 </article>
 </div></div>
 <div class="motion-gallery-footer"><span>ACERVO / 2026</span><div class="gallery-meter"><span id="gallery-meter-progress"></span></div><a class="gallery-skip" href="#contato">Ir para o contato <span aria-hidden="true">↘︎</span></a></div>
 </div>
 </div>
-<div class="works-fallback"><div class="work-feature"><a class="work-art work-art-large" href="projetos/AtelierNoir/index.html"><img alt="Prévia real do Atelier Noir" loading="lazy" src="assets/atelier-noir.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="work-annotation"><span class="work-annotation-no">Nº 03, WEBSITE</span><div><h3>Atelier <i>Noir.</i></h3></div><a class="underlink" data-i18n="ui.viewProject" href="projetos/AtelierNoir/index.html">Ver projeto</a></div></div>
-<div class="work-pair"><article class="work-pair-item work-pair-first"><a class="work-art" href="projetos/FontPairing/index.html"><img alt="Prévia real do Font Pairing" loading="lazy" src="assets/font-pairing.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="pair-caption"><span>Nº 02 / EXPLORAÇÃO</span><h3>Font Pairing</h3><a aria-label="Abrir Font Pairing" href="projetos/FontPairing/index.html">↗︎</a></div></article><article class="work-pair-item work-pair-second"><a class="work-art" href="projetos/ElegantFonts/index.html"><img alt="Prévia real do Elegant Fonts" loading="lazy" src="assets/elegant-fonts.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="pair-caption"><span>Nº 01 / FERRAMENTA</span><h3>Elegant Fonts</h3><a aria-label="Abrir Elegant Fonts" href="projetos/ElegantFonts/index.html">↗︎</a></div></article></div>
+<div class="works-fallback"><div class="work-feature"><a class="work-art work-art-large" href="projetos/AtelierNoir/index.html"><img alt="Prévia real do Atelier Noir" loading="lazy" src="assets/atelier-noir.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="work-annotation"><span class="work-annotation-no">Nº 01, WEBSITE</span><div><h3>Atelier <i>Noir.</i></h3></div><a class="underlink" data-i18n="ui.viewProject" href="projetos/AtelierNoir/index.html">Ver projeto</a></div></div>
+<div class="work-pair"><article class="work-pair-item work-pair-first"><a class="work-art" href="projetos/FontPairing/index.html"><img alt="Prévia real do Font Pairing" loading="lazy" src="assets/font-pairing.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="pair-caption"><span>Nº 02 / EXPLORAÇÃO</span><h3>Font Pairing</h3><a aria-label="Abrir Font Pairing" href="projetos/FontPairing/index.html">↗︎</a></div></article><article class="work-pair-item work-pair-second"><a class="work-art" href="projetos/ElegantFonts/index.html"><img alt="Prévia real do Elegant Fonts" loading="lazy" src="assets/elegant-fonts.jpg"/><span aria-hidden="true" class="work-open">↗︎</span></a><div class="pair-caption"><span>Nº 03 / FERRAMENTA</span><h3>Elegant Fonts</h3><a aria-label="Abrir Elegant Fonts" href="projetos/ElegantFonts/index.html">↗︎</a></div></article></div>
 </div>
 <div aria-label="Informações dos projetos" class="work-dossiers">
 <article class="work-dossier" id="detalhes-1"><span class="dossier-number">01 / ARQUIVO</span><div class="dossier-main"><h3>Atelier Noir</h3><p class="dossier-description" data-i18n="works.card3.copy">Um conceito focado em atmosfera, ritmo e profundidade emocional, usando movimento e ritmo visual para tornar a interação imersiva e memorável.</p><div class="dossier-metadata"><span data-i18n="works.card3.meta2">UI Design / Front-End / Sistema de Movimento</span></div></div><a class="dossier-link" data-i18n="works.card3.button" href="projetos/AtelierNoir/index.html">Ver case</a></article>
