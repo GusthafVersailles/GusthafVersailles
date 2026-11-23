@@ -40,12 +40,6 @@
   const heroField = d.querySelector('.hero-mark-field');
   const outro = d.querySelector('.outro');
   const outroArt = d.querySelector('.outro-graphic');
-  const method = d.querySelector('.method');
-  const methodSteps = [...d.querySelectorAll('.method-steps details')];
-  const mobileCounter = d.getElementById('method-mobile-active-number');
-  // Fiel ao v38: o destaque do passo em foco só roda se #method-active-number existir (hoje não existe no HTML,
-  // então o recurso permanece inativo exatamente como antes). Adicione o elemento para reativá-lo.
-  const methodCounter = d.getElementById('method-active-number');
   const aboutSection = d.getElementById('sobre');
 
   /* ───────── Abertura ─────────
@@ -186,8 +180,8 @@
   }
 
   /* ───────── Geometria (medida uma vez) ───────── */
-  const M = { headerH: 86, hero: null, frameTop: 0, outro: null, method: null, steps: [] };
-  let lastY = -1, lastScrolled = null, heroP = -1, outroP = -1, methodIdx = -1;
+  const M = { headerH: 86, hero: null, frameTop: 0, outro: null };
+  let lastY = -1, lastScrolled = null, heroP = -1, outroP = -1;
 
   function measure() {
     configureGallery();
@@ -195,8 +189,6 @@
     M.hero = hero ? { top: GV.docTop(hero), h: hero.offsetHeight } : null;
     M.frameTop = frame ? GV.docTop(frame) : 0;
     M.outro = outro && outroArt ? { top: GV.docTop(outro), h: outro.offsetHeight } : null;
-    M.method = method && methodCounter && methodSteps.length ? { top: GV.docTop(method), h: method.offsetHeight } : null;
-    M.steps = methodSteps.map(s => GV.docTop(s));
     lastY = -1;
   }
 
@@ -242,20 +234,6 @@
       }
     }
 
-    if (M.method) {
-      const top = M.method.top - y;
-      if (top < vh && top + M.method.h > 0) {
-        const boundary = vh * .66;
-        let eligible = 0;
-        for (let i = 0; i < M.steps.length; i++) if (M.steps[i] - y < boundary) eligible++;
-        const idx = Math.max(0, eligible - 1);
-        if (idx !== methodIdx) {
-          methodIdx = idx;
-          methodSteps.forEach((item, i) => item.classList.toggle('motion-step-current', i === idx));
-          if (mobileCounter) mobileCounter.textContent = String(idx + 1).padStart(2, '0');
-        }
-      }
-    }
   }
 
   // Estado inicial síncrono (evita o piscar da grade de fallback) e registro no relógio único.
