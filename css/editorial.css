@@ -833,3 +833,26 @@ body {font-family:var(--pw-label);font-size:16px;line-height:1.5;}
     text-wrap:pretty;
   }
 }
+
+/* Sobre: eixo central no mobile, do título às áreas de atuação. */
+@media (max-width:800px) {
+  .statement .about-opening .statement-body.editorial-heading-row h2 {
+    justify-self:center;
+    text-align:center;
+    text-wrap:balance;
+  }
+  .statement .about-opening .editorial-metadata {
+    display:flex;
+    width:100%;
+    justify-content:center;
+    align-self:center;
+    justify-self:center;
+    flex-wrap:wrap;
+    gap:8px clamp(12px, 3vw, 22px);
+    text-align:center;
+  }
+  .statement .about-opening .editorial-metadata span {
+    max-width:none;
+    white-space:nowrap;
+  }
+}
