@@ -190,9 +190,20 @@ function convert() {
   output.textContent = result;
 }
 
-function copyText() {
+async function copyText() {
   if (!output.textContent) return;
-  navigator.clipboard.writeText(output.textContent);
+  try {
+    await navigator.clipboard.writeText(output.textContent);
+  } catch {
+    alert('Não foi possível copiar o texto.');
+    return;
+  }
+  // Registrar somente o sucesso da ação, nunca o conteúdo da área de transferência.
+  if (typeof window.spyOnTrack === 'function') {
+    window.spyOnTrack('link_click', {
+      label: 'Copiar', kind: 'button', action: 'copy_success'
+    });
+  }
   alert('Texto copiado.');
 }
 
